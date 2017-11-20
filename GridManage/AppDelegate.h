@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AFNetworking/AFNetworkReachabilityManager.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (strong, nonatomic) AFNetworkReachabilityManager *reqachabilityManager;
+@property (assign, nonatomic) BOOL isNetworkReachable;
 
 @end
 

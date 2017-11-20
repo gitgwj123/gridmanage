@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "TLLoginViewController.h"
+
 
 @interface AppDelegate ()
 
@@ -17,7 +19,59 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    
+    //初始化网络监听
+    [self initNetworkMonitor];
+    
+    self.window = [[UIWindow alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+    TLLoginViewController *loginVc = [[TLLoginViewController alloc] init];
+    UINavigationController *loginNav = [[UINavigationController alloc] initWithRootViewController:loginVc];
+    self.window.rootViewController = loginNav;
+    [self.window makeKeyAndVisible];
+    
     return YES;
+}
+
+
+- (void)initNetworkMonitor
+{
+    MyLog(@"initNetworkMonitor ");
+    self.isNetworkReachable = YES;
+    _reqachabilityManager = [AFNetworkReachabilityManager sharedManager];
+    [_reqachabilityManager startMonitoring];
+    NSDate *date = [NSDate new];
+    WeakSelf;
+    [_reqachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        MyLog(@"network time interval : %@", @([[NSDate new] timeIntervalSinceDate:date]));
+        MyLog(@"Network Reachable : %@", @(status));
+        StrongSelf;
+        if (status == AFNetworkReachabilityStatusNotReachable
+            && strongSelf.isNetworkReachable
+            ) {
+            strongSelf.isNetworkReachable = NO;
+            [strongSelf showNetWorkLost];
+        }
+        
+    }];
+}
+
+
+- (void)showNetWorkLost
+{
+    MyLog(@"😂😂😂网络断开连接！！！！");
+    
+    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.window];
+    [self.window addSubview:HUD];
+    
+    // Set custom view mode
+    HUD.mode = MBProgressHUDModeCustomView;
+    
+    HUD.labelText = @"网络断开连接， 请稍后重试";
+    [HUD show:YES];
+    [HUD hide:YES afterDelay:2.0f];
 }
 
 
