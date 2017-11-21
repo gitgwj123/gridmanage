@@ -59,7 +59,6 @@
 		E06239701FB17EE800388473 /* UIImageView+Parameter.m in Sources */ = {isa = PBXBuildFile; fileRef = E062396F1FB17EE800388473 /* UIImageView+Parameter.m */; };
 		E06239731FB17F0100388473 /* UILabel+Parameter.m in Sources */ = {isa = PBXBuildFile; fileRef = E06239721FB17F0100388473 /* UILabel+Parameter.m */; };
 		E06239791FB2D06500388473 /* TLAddTroubleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E06239781FB2D06500388473 /* TLAddTroubleViewController.m */; };
-		E062397C1FB2D0E400388473 /* TLTroubleManageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E062397B1FB2D0E400388473 /* TLTroubleManageTableViewCell.m */; };
 		E062397F1FB2D11400388473 /* TroubleManageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E062397E1FB2D11400388473 /* TroubleManageModel.m */; };
 		E06239821FB312F500388473 /* TLAttachmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E06239811FB312F500388473 /* TLAttachmentViewController.m */; };
 		E06239851FB429CE00388473 /* TroubleSubclassModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E06239841FB429CE00388473 /* TroubleSubclassModel.m */; };
@@ -202,8 +201,6 @@
 		E06239721FB17F0100388473 /* UILabel+Parameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Parameter.m"; sourceTree = "<group>"; };
 		E06239771FB2D06500388473 /* TLAddTroubleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLAddTroubleViewController.h; sourceTree = "<group>"; };
 		E06239781FB2D06500388473 /* TLAddTroubleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLAddTroubleViewController.m; sourceTree = "<group>"; };
-		E062397A1FB2D0E400388473 /* TLTroubleManageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLTroubleManageTableViewCell.h; sourceTree = "<group>"; };
-		E062397B1FB2D0E400388473 /* TLTroubleManageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLTroubleManageTableViewCell.m; sourceTree = "<group>"; };
 		E062397D1FB2D11400388473 /* TroubleManageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TroubleManageModel.h; sourceTree = "<group>"; };
 		E062397E1FB2D11400388473 /* TroubleManageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TroubleManageModel.m; sourceTree = "<group>"; };
 		E06239801FB312F500388473 /* TLAttachmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLAttachmentViewController.h; sourceTree = "<group>"; };
@@ -635,8 +632,6 @@
 				E0AAE7171FB04AF0003F8EDB /* TLPatrolTableViewCell.m */,
 				E0AAE7251FB04BB6003F8EDB /* TLPatrolItemTableViewCell.h */,
 				E0AAE7261FB04BB6003F8EDB /* TLPatrolItemTableViewCell.m */,
-				E062397A1FB2D0E400388473 /* TLTroubleManageTableViewCell.h */,
-				E062397B1FB2D0E400388473 /* TLTroubleManageTableViewCell.m */,
 				E07CF5EB1FC27ED60004ED1E /* TLTroubleManageCell.h */,
 				E07CF5EC1FC27ED60004ED1E /* TLTroubleManageCell.m */,
 				E07CF5ED1FC27ED60004ED1E /* TLTroubleManageCell.xib */,
@@ -855,7 +850,6 @@
 				E06239791FB2D06500388473 /* TLAddTroubleViewController.m in Sources */,
 				E06239851FB429CE00388473 /* TroubleSubclassModel.m in Sources */,
 				E0404E621FB93AE9006F2812 /* TLPhotoViewController.m in Sources */,
-				E062397C1FB2D0E400388473 /* TLTroubleManageTableViewCell.m in Sources */,
 				E0404E591FB82848006F2812 /* UITextView+ZWPlaceHolder.m in Sources */,
 				E005E8BD1FAACD110008EC6F /* AppDelegate.m in Sources */,
 				E0AAE7241FB04B9E003F8EDB /* PatrolItemModel.m in Sources */,
@@ -1070,7 +1064,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.winsion.GridManage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f8a23a94-4775-436f-ada8-8a0f76d830d4";
+				PROVISIONING_PROFILE = "312109df-4617-4706-8fcf-16c48621e380";
 				PROVISIONING_PROFILE_SPECIFIER = gridmanageDevelopment;
 			};
 			name = Debug;
@@ -1080,7 +1074,8 @@
 			baseConfigurationReference = BD1BCDEF0BE0AC52F31D29AB /* Pods-GridManage.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = C9A273V6SS;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GridManage/GridManage.pch";
 				INFOPLIST_FILE = GridManage/Info.plist;
@@ -1088,7 +1083,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.winsion.GridManage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ee301aff-e452-479d-9fcd-40633a17c889";
+				PROVISIONING_PROFILE_SPECIFIER = GridmanageLimitDevice;
 			};
 			name = Release;
 		};

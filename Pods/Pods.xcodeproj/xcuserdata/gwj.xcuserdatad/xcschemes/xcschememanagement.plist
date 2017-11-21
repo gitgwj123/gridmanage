@@ -9,11 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>CYLTabBarController.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>MBProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -67,22 +62,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>022F1BF9847E1A3E4F57FCF891A29BDC</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>04CF549EBEEE7BC87AEAE35397184D94</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0BC501C74D6A0F57A5EFD80E6E8BA2E5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>169844F3E7BF49EC10F7B0E46DD292FA</key>
+		<key>056999615DEC32DA4FA9167D3C57D929</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,27 +77,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>58621FE0361F210DE0696B72EA1210CF</key>
+		<key>3FC132BE2C957D35D66D106EEB107CBD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7943AB7586CE7640929DD66097146925</key>
+		<key>7F15C47FB47F93F06369C40212362130</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>87D85CC7FCC05D9A2FB0AD4BFA5C138A</key>
+		<key>8B07D4AED8E7C503A38CF919A5634512</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>96FA39AC164F9F37DD8ECC736BCEACA3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9B49319B473F7069475107191F951A99</key>
+		<key>8DC34E3853749C903D6BD0C99690648D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -123,6 +103,16 @@
 			<true/>
 		</dict>
 		<key>9E033EDB5EC0819481B0546434FA577B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AFDF4F5AE4BC46664F05D987A3DFE30B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B62C82D74696E25E010C41C55715E78B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

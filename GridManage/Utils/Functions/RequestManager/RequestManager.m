@@ -104,20 +104,20 @@
     return [lastParameters copy];
 }
 
-- (NSString *)getWifiSSID {
-    //需要导入框架头文件 #import <SystemConfiguration/CaptiveNetwork.h>
-    NSArray *names = (__bridge NSArray*)CNCopySupportedInterfaces();
-    NSDictionary *info = nil;
-    for (NSString *name in names) {
-        info = (__bridge NSDictionary*)CNCopyCurrentNetworkInfo((__bridge CFStringRef)name);
-        if (info && [info count]) {
-            break;
-        }
-    }
-    NSString *ssidStr = [info objectForKey:(__bridge NSString*)kCNNetworkInfoKeySSID];
-    //NSString *bssid = [[info objectForKey:(__bridge NSString*)kCNNetworkInfoKeyBSSID] lowercaseString]; //BSSID wifi的MAC地址
-    return ssidStr;
-}
+//- (NSString *)getWifiSSID {
+//    //需要导入框架头文件 #import <SystemConfiguration/CaptiveNetwork.h>
+//    NSArray *names = (__bridge NSArray*)CNCopySupportedInterfaces();
+//    NSDictionary *info = nil;
+//    for (NSString *name in names) {
+//        info = (__bridge NSDictionary*)CNCopyCurrentNetworkInfo((__bridge CFStringRef)name);
+//        if (info && [info count]) {
+//            break;
+//        }
+//    }
+//    NSString *ssidStr = [info objectForKey:(__bridge NSString*)kCNNetworkInfoKeySSID];
+//    //NSString *bssid = [[info objectForKey:(__bridge NSString*)kCNNetworkInfoKeyBSSID] lowercaseString]; //BSSID wifi的MAC地址
+//    return ssidStr;
+//}
 
 - (NSString *)deviceModel {
     //https://www.theiphonewiki.com/wiki/Main_Page

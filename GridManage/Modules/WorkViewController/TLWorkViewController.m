@@ -19,9 +19,7 @@
 
 #import "TLTaskStatusView.h"
 
-static NSString  *work_notiLabelText_nottask = @"暂时没有任务，点击重新获取";
-static NSString  *work_notiLabelText_notmonitortask = @"暂时没有任务监控，点击重新获取";
-static NSString  *work_notiLabelText_loadfailure = @"加载失败，点击重试";
+
 
 @interface TLWorkViewController ()<UITableViewDelegate, UITableViewDataSource, TLTaskStatusViewDelegate>
 
@@ -114,8 +112,7 @@ static NSString  *work_notiLabelText_loadfailure = @"加载失败，点击重试
     }
 }
 
-
-- (void)rightNavigationBarItemAction:(UIButton *)sender {
+- (void)headViewTapAction:(UITapGestureRecognizer *)tap {
 
     TLSettingViewController *settingVc = [[TLSettingViewController alloc] init];
     [self.navigationController pushViewController:settingVc animated:YES];
@@ -184,6 +181,9 @@ static NSString  *work_notiLabelText_loadfailure = @"加载失败，点击重试
     headView.backgroundColor = RGBColor(3, 29, 64, 1);
     headView.layer.masksToBounds = YES;
     headView.layer.cornerRadius = 15;
+    headView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headViewTapAction:)];
+    [headView addGestureRecognizer:tap];
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(2.5, -3, 25, 35)];
     imageView.clipsToBounds = YES;

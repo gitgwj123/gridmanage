@@ -66,8 +66,10 @@ static NSInteger const displayTableViewHeight = 150;
     UIImage *image = [UIImage imageNamed:@"ic_default"];
     if (userPhoto) {
         [self.headImageView yy_setImageWithURL:[NSURL URLWithString:userPhoto] placeholder:image options:YYWebImageOptionUseNSURLCache progress:nil transform:nil completion:nil];
+        self.headView.backgroundColor = RGBColor(3, 29, 64, 1);
     } else {
         self.headImageView.image = image;
+        self.headView.backgroundColor = RGBColor(37, 37, 37, 1);
     }
     
 }
@@ -334,7 +336,7 @@ static NSInteger const displayTableViewHeight = 150;
     if (!_headView) {
         _headView = [[UIView alloc] initWithFrame:CGRectMake((screenWidth - 50)/2, 150, 60, 60)];
         [self.view addSubview:_headView];
-        _headView.backgroundColor = RGBColor(37, 37, 37, 1);
+        _headView.backgroundColor = RGBColor(37, 37, 37, 1);//灰色
         _headView.layer.masksToBounds = YES;
         _headView.layer.cornerRadius = 30;
         

@@ -13,13 +13,9 @@
 #import "TLPatrolTableViewCell.h"
 #import "PatrolModel.h"
 
-#import "TLTroubleManageTableViewCell.h"
 #import "TLTroubleManageCell.h"
 #import "TroubleManageModel.h"
 
-
-static NSString  *notiLabelText_notdata = @"没有数据，点击重新获取";
-static NSString  *notiLabelText_loadfailure = @"加载失败，点击重试";
 
 @interface TLGridViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -399,7 +395,13 @@ static NSString  *notiLabelText_loadfailure = @"加载失败，点击重试";
                     [strongSelf.allTasksArray addObject:patrolModel];
                 }
                 
-                [strongSelf matchBluetoothId];
+                //[strongSelf matchBluetoothId];
+                
+                if (self.pointTasksArray.count > 0) {
+                    [self.pointTasksArray removeAllObjects];
+                }
+                self.pointTasksArray = [NSMutableArray arrayWithArray:self.allTasksArray];
+                
                 dispatch_async(dispatch_get_main_queue(), ^{
                     strongSelf.notiLabel.hidden = YES;
                     strongSelf.displayTableView.hidden = NO;
