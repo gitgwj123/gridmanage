@@ -88,7 +88,7 @@ static NSInteger const startLabelWidth = 50;
 #pragma mark - private methods 
 - (void)configTableView {
 
-    self.displayTableView.frame = CGRectMake(0, statusBarAndNavBarHeight + 50, screenWidth, screenHeight - statusBarAndNavBarHeight - 50);
+    self.displayTableView.frame = CGRectMake(0, statusBarAndNavBarHeight + 40, screenWidth, screenHeight - statusBarAndNavBarHeight - 40);
     self.displayTableView.delegate = self;
     self.displayTableView.dataSource = self;
     [self.displayTableView registerClass:[TLPatrolItemTableViewCell class] forCellReuseIdentifier:TLPatrolItemTableViewCellIdentifier];
@@ -110,7 +110,6 @@ static NSInteger const startLabelWidth = 50;
         self.startLabel.text = @"--:--";
         self.finishLabel.text = @"--:--";
     }
-    
 }
 
 - (void)submitSuccessSetPatrolTime {

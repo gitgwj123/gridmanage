@@ -11,6 +11,7 @@
 @interface TLPhotoModel : NSObject
 
 @property NSString *filePath;//
+@property (nonatomic, assign) TLPhotoType photoType;
 @property (nonatomic, assign) TLloadImageType type;
 
 

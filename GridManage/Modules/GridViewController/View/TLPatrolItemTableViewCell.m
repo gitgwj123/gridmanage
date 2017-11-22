@@ -31,7 +31,7 @@ static NSInteger const deviceNormalImageViewWidth = 46;
     
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.backgroundColor = [UIColor grayColor];
+        self.backgroundColor = [UIColor clearColor];
         [self initUI];
     }
     return self;

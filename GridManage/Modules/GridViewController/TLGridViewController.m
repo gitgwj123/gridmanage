@@ -290,7 +290,6 @@
             cell = [[TLTroubleManageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TLTroubleManageCellIdentifier];
         }
         
-        //[cell setupTroubleManageCellWithTroubleManageModel:self.troubleList[indexPath.row]];
         cell.model = self.troubleList[indexPath.row];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -312,8 +311,11 @@
         PatrolModel *model = self.pointTasksArray[indexPath.row];
         [TLStorage setPointName:model.pointname];
         [self pushTLPatrolItemViewControllerWithIndex:indexPath.row];
+    } else {
+        TroubleManageModel *model = self.troubleList[indexPath.row];
+        TLAttachmentViewController *attachmentVc = [[TLAttachmentViewController alloc] initWithTaskId:model.tasksid];
+        [self.navigationController pushViewController:attachmentVc animated:YES];
     }
-    
 }
 
 

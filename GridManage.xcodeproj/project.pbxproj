@@ -26,10 +26,8 @@
 		E031FC6A1FAC4976002783CD /* TLStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = E031FC691FAC4976002783CD /* TLStorage.m */; };
 		E031FC6F1FAC6B69002783CD /* TLAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = E031FC6E1FAC6B69002783CD /* TLAlert.m */; };
 		E0404E441FB812CC006F2812 /* XLPaymentLoadingHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E0404E411FB812CC006F2812 /* XLPaymentLoadingHUD.m */; };
-		E0404E451FB812CC006F2812 /* XLPaymentSuccessHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E0404E431FB812CC006F2812 /* XLPaymentSuccessHUD.m */; };
 		E0404E491FB816B0006F2812 /* RequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E0404E481FB816B0006F2812 /* RequestManager.m */; };
 		E0404E4C1FB816DB006F2812 /* RequestManager+UploadImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E0404E4B1FB816DB006F2812 /* RequestManager+UploadImage.m */; };
-		E0404E521FB81BE6006F2812 /* TLFailureHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E0404E511FB81BE6006F2812 /* TLFailureHUD.m */; };
 		E0404E591FB82848006F2812 /* UITextView+ZWPlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = E0404E581FB82848006F2812 /* UITextView+ZWPlaceHolder.m */; };
 		E0404E5F1FB9235D006F2812 /* TLPhotoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0404E5E1FB9235D006F2812 /* TLPhotoTableViewCell.m */; };
 		E0404E621FB93AE9006F2812 /* TLPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0404E611FB93AE9006F2812 /* TLPhotoViewController.m */; };
@@ -72,6 +70,7 @@
 		E0AAE7241FB04B9E003F8EDB /* PatrolItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E0AAE7231FB04B9E003F8EDB /* PatrolItemModel.m */; };
 		E0AAE7271FB04BB6003F8EDB /* TLPatrolItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0AAE7261FB04BB6003F8EDB /* TLPatrolItemTableViewCell.m */; };
 		E0AAE72A1FB04BCA003F8EDB /* TLPatrolItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0AAE7291FB04BCA003F8EDB /* TLPatrolItemViewController.m */; };
+		E0B0E20F1FC55DC000303FFC /* SaveImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B0E20E1FC55DC000303FFC /* SaveImageManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,14 +132,10 @@
 		E031FC6E1FAC6B69002783CD /* TLAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLAlert.m; sourceTree = "<group>"; };
 		E0404E401FB812CC006F2812 /* XLPaymentLoadingHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLPaymentLoadingHUD.h; sourceTree = "<group>"; };
 		E0404E411FB812CC006F2812 /* XLPaymentLoadingHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLPaymentLoadingHUD.m; sourceTree = "<group>"; };
-		E0404E421FB812CC006F2812 /* XLPaymentSuccessHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLPaymentSuccessHUD.h; sourceTree = "<group>"; };
-		E0404E431FB812CC006F2812 /* XLPaymentSuccessHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLPaymentSuccessHUD.m; sourceTree = "<group>"; };
 		E0404E471FB816B0006F2812 /* RequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestManager.h; sourceTree = "<group>"; };
 		E0404E481FB816B0006F2812 /* RequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestManager.m; sourceTree = "<group>"; };
 		E0404E4A1FB816DB006F2812 /* RequestManager+UploadImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RequestManager+UploadImage.h"; sourceTree = "<group>"; };
 		E0404E4B1FB816DB006F2812 /* RequestManager+UploadImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RequestManager+UploadImage.m"; sourceTree = "<group>"; };
-		E0404E501FB81BE6006F2812 /* TLFailureHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLFailureHUD.h; sourceTree = "<group>"; };
-		E0404E511FB81BE6006F2812 /* TLFailureHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLFailureHUD.m; sourceTree = "<group>"; };
 		E0404E531FB81CC6006F2812 /* TLLoadingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TLLoadingHeader.h; sourceTree = "<group>"; };
 		E0404E571FB82848006F2812 /* UITextView+ZWPlaceHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+ZWPlaceHolder.h"; sourceTree = "<group>"; };
 		E0404E581FB82848006F2812 /* UITextView+ZWPlaceHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+ZWPlaceHolder.m"; sourceTree = "<group>"; };
@@ -229,6 +224,8 @@
 		E0AAE7261FB04BB6003F8EDB /* TLPatrolItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLPatrolItemTableViewCell.m; sourceTree = "<group>"; };
 		E0AAE7281FB04BCA003F8EDB /* TLPatrolItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLPatrolItemViewController.h; sourceTree = "<group>"; };
 		E0AAE7291FB04BCA003F8EDB /* TLPatrolItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLPatrolItemViewController.m; sourceTree = "<group>"; };
+		E0B0E20D1FC55DC000303FFC /* SaveImageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaveImageManager.h; sourceTree = "<group>"; };
+		E0B0E20E1FC55DC000303FFC /* SaveImageManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SaveImageManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -474,6 +471,7 @@
 		E031FC641FAC42BF002783CD /* Functions */ = {
 			isa = PBXGroup;
 			children = (
+				E0B0E20C1FC55DA300303FFC /* SaveImageManager */,
 				E0404E991FBA9C7E006F2812 /* AccountPwdManager */,
 				E0404E951FBA9BE6006F2812 /* TLPatrolTimeManager */,
 				E0404E461FB81695006F2812 /* RequestManager */,
@@ -492,10 +490,6 @@
 				E0404E531FB81CC6006F2812 /* TLLoadingHeader.h */,
 				E0404E401FB812CC006F2812 /* XLPaymentLoadingHUD.h */,
 				E0404E411FB812CC006F2812 /* XLPaymentLoadingHUD.m */,
-				E0404E421FB812CC006F2812 /* XLPaymentSuccessHUD.h */,
-				E0404E431FB812CC006F2812 /* XLPaymentSuccessHUD.m */,
-				E0404E501FB81BE6006F2812 /* TLFailureHUD.h */,
-				E0404E511FB81BE6006F2812 /* TLFailureHUD.m */,
 			);
 			path = CustomHUD;
 			sourceTree = "<group>";
@@ -639,6 +633,15 @@
 				E0404E5E1FB9235D006F2812 /* TLPhotoTableViewCell.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		E0B0E20C1FC55DA300303FFC /* SaveImageManager */ = {
+			isa = PBXGroup;
+			children = (
+				E0B0E20D1FC55DC000303FFC /* SaveImageManager.h */,
+				E0B0E20E1FC55DC000303FFC /* SaveImageManager.m */,
+			);
+			path = SaveImageManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -862,7 +865,6 @@
 				E005E8F11FAAF0590008EC6F /* BaseViewController.m in Sources */,
 				E031FC6A1FAC4976002783CD /* TLStorage.m in Sources */,
 				E0404E491FB816B0006F2812 /* RequestManager.m in Sources */,
-				E0404E521FB81BE6006F2812 /* TLFailureHUD.m in Sources */,
 				E0404E831FB99A1F006F2812 /* TaskMonitorTableViewCell.m in Sources */,
 				E0AAE71E1FB04B36003F8EDB /* PatrolModel.m in Sources */,
 				E005E8FE1FAB00500008EC6F /* TLWorkViewController.m in Sources */,
@@ -873,10 +875,10 @@
 				E0404EC31FBDDDE0006F2812 /* NSString+ImagePath.m in Sources */,
 				E005E90E1FAB20510008EC6F /* BaseViewController+NavigationBar.m in Sources */,
 				E06239821FB312F500388473 /* TLAttachmentViewController.m in Sources */,
+				E0B0E20F1FC55DC000303FFC /* SaveImageManager.m in Sources */,
 				E005E9011FAB00680008EC6F /* TLGridViewController.m in Sources */,
 				E0404E4C1FB816DB006F2812 /* RequestManager+UploadImage.m in Sources */,
 				E0404EAE1FBD1B75006F2812 /* TLWorkDetailViewController.m in Sources */,
-				E0404E451FB812CC006F2812 /* XLPaymentSuccessHUD.m in Sources */,
 				E0404E941FB9DF45006F2812 /* TLTaskStatusView.m in Sources */,
 				E0AAE7181FB04AF0003F8EDB /* TLPatrolTableViewCell.m in Sources */,
 				E0404E441FB812CC006F2812 /* XLPaymentLoadingHUD.m in Sources */,

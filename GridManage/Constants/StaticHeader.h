@@ -17,6 +17,8 @@ static NSString  *work_notiLabelText_nottask = @"暂时没有任务，点击重�
 static NSString  *work_notiLabelText_notmonitortask = @"暂时没有任务监控，点击重新获取";
 static NSString  *work_notiLabelText_loadfailure = @"加载失败，点击重试";
 
+static NSInteger const ScrollViewContentSize_MoreHeight = 20;
+
 //网格
 static NSString  *notiLabelText_notdata = @"没有数据，点击重新获取";
 static NSString  *notiLabelText_loadfailure = @"加载失败，点击重试";

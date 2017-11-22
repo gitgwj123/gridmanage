@@ -22,6 +22,9 @@ typedef NS_ENUM(NSInteger, TLloadImageType) {
     loadFailureType = 2,
 };
 
-
+typedef NS_ENUM(NSInteger, TLPhotoType) {
+    photoType_publish = 0,
+    photoType_opreator = 1,
+};
 
 #endif /* EnumTypes_h */

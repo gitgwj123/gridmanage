@@ -23,7 +23,7 @@
 
 static NSInteger const TOPView_Height = 180;
 static NSInteger const CameraView_Height = 60;
-static NSInteger const ScrollViewContentSize_MoreHeight = 20;
+
 
 @interface TLWorkDetailViewController ()<UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -107,15 +107,24 @@ static NSInteger const ScrollViewContentSize_MoreHeight = 20;
 - (void)workDetailCellDownloadNotification:(NSNotification *)noti {
 
     TLPhotoModel *notiModel = noti.object;
-    for (NSInteger i = 0; i < self.publishPhotoArray.count; i++) {
-        
-        TLPhotoModel *model = self.publishPhotoArray[i];
-        if ([model.filePath isEqualToString:notiModel.filePath]) {
-            [self.publishPhotoArray replaceObjectAtIndex:i withObject:notiModel];
-        }
-    }
     
-    [self.publishTableView reloadData];
+    if (notiModel.photoType == photoType_publish) {
+        for (NSInteger i = 0; i < self.publishPhotoArray.count; i++) {
+            TLPhotoModel *model = self.publishPhotoArray[i];
+            if ([model.filePath isEqualToString:notiModel.filePath]) {
+                [self.publishPhotoArray replaceObjectAtIndex:i withObject:notiModel];
+            }
+        }
+        [self.publishTableView reloadData];
+    } else {
+        for (NSInteger i = 0; i < self.operatePhotoArray.count; i++) {
+            TLPhotoModel *model = self.operatePhotoArray[i];
+            if ([model.filePath isEqualToString:notiModel.filePath]) {
+                [self.operatePhotoArray replaceObjectAtIndex:i withObject:notiModel];
+            }
+        }
+         [self.operateTableView reloadData];
+    }
 }
 
 - (void)operateLabelTapAction:(UITapGestureRecognizer *)tap {
@@ -324,6 +333,7 @@ static NSInteger const ScrollViewContentSize_MoreHeight = 20;
             TLPhotoModel *newModel = [[TLPhotoModel alloc] init];
             newModel.filePath = path;
             newModel.type = status;
+            newModel.photoType = model.photoType;
             [self.photoArray replaceObjectAtIndex:i withObject:newModel];
             break;
         }
@@ -368,7 +378,7 @@ static NSInteger const ScrollViewContentSize_MoreHeight = 20;
             cell = [[WorkDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:WorkDetailTableViewCellIdentifier];
         }
         TLPhotoModel *model = self.publishPhotoArray[indexPath.row];
-        [cell setupWorkDetailCellWithImageFilePath:model.filePath loadStatusType:model.type];
+        [cell setupWorkDetailCellWithPhotoModel:model];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     } else if ([tableView isEqual:self.operateTableView]) {
@@ -388,18 +398,15 @@ static NSInteger const ScrollViewContentSize_MoreHeight = 20;
         return cell;
     } else {
         
-        TLPhotoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TLPhotoTableViewCellIdentifier];
+        WorkDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:WorkDetailTableViewCellIdentifier];
         
         if (!cell) {
-            cell = [[TLPhotoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TLPhotoTableViewCellIdentifier];
+            cell = [[WorkDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:WorkDetailTableViewCellIdentifier];
         }
         
         TLPhotoModel *model = self.photoArray[indexPath.row];
-        [cell setupPhotoTableViewCellWithImageFilePath:model.filePath loadStatusType:model.type];
+        [cell setupWorkDetailCellWithPhotoModel:model];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.loadStatusViewTapBlock = ^(NSString *imageFilePath) {
-            [self uploadImageWithImageFilePath:imageFilePath];
-        };
         return cell;
     }
 }
@@ -407,18 +414,28 @@ static NSInteger const ScrollViewContentSize_MoreHeight = 20;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
    
     TLPhotoModel *model;
+    NSString *imageFilePath;
+    NSString *imageFileName;
+    NSString * documentsDirectoryPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     if ([tableView isEqual:self.publishTableView]) {
         model = self.publishPhotoArray[indexPath.row];
+        imageFileName = [[model.filePath componentsSeparatedByString:@"/"] lastObject];
+        imageFilePath = [NSString stringWithFormat:@"%@/%@", documentsDirectoryPath, imageFileName];
     } else if ([tableView isEqual:self.operateTableView]) {
         model = self.operatePhotoArray[indexPath.row];
+        imageFileName = [[model.filePath componentsSeparatedByString:@"/"] lastObject];
+        imageFilePath = [NSString stringWithFormat:@"%@/%@", documentsDirectoryPath, imageFileName];
     }
     else {
         model = self.photoArray[indexPath.row];
+        imageFilePath = model.filePath;
     }
- 
-    TLPhotoViewController *photoVc = [[TLPhotoViewController alloc] initWithImageFilePath:model.filePath];
     
-    [self.navigationController pushViewController:photoVc animated:YES];
+    if (model.type == loadSuccessType) {
+        TLPhotoViewController *photoVc = [[TLPhotoViewController alloc] initWithImageFilePath:imageFilePath];
+        
+        [self.navigationController pushViewController:photoVc animated:YES];
+    }
 }
 
 
@@ -440,6 +457,7 @@ static NSInteger const ScrollViewContentSize_MoreHeight = 20;
                 TLPhotoModel *model = [[TLPhotoModel alloc] init];
                 model.filePath = imageFile;
                 model.type = loadingType;
+                model.photoType = photoType_opreator;
                 [self.photoArray addObject:model];
                 [self updatePhotoTableViewFromImagePickerWithData:imageFile];
             }
@@ -510,7 +528,6 @@ static NSInteger const ScrollViewContentSize_MoreHeight = 20;
 
 
 - (void)requestMonitorfiles {
-
     NSString *dataStr = [self getMonitorfilesDataParameter];
     
     [self networkStartLoad:self.view animated:YES];
@@ -531,6 +548,7 @@ static NSInteger const ScrollViewContentSize_MoreHeight = 20;
                     TLPhotoModel *model = [[TLPhotoModel alloc] init];
                     model.filePath = dic[@"filepath"];
                     model.type = loadingType;
+                    model.photoType = photoType_publish;
                     [strongSelf.publishPhotoArray addObject:model];
                 }
                 
@@ -590,6 +608,7 @@ static NSInteger const ScrollViewContentSize_MoreHeight = 20;
                     TLPhotoModel *model = [[TLPhotoModel alloc] init];
                     model.filePath = dic[@"filepath"];
                     model.type = loadingType;
+                    model.photoType = photoType_opreator;
                     [strongSelf.operatePhotoArray addObject:model];
                 }
                 
@@ -806,7 +825,7 @@ static NSInteger const ScrollViewContentSize_MoreHeight = 20;
         _photoTableView.delegate = self;
         _photoTableView.dataSource = self;
         [_photoTableView setSeparatorColor:[UIColor clearColor]];
-        [_photoTableView registerClass:[TLPhotoTableViewCell class] forCellReuseIdentifier:TLPhotoTableViewCellIdentifier];
+        [_photoTableView registerClass:[WorkDetailTableViewCell class] forCellReuseIdentifier:WorkDetailTableViewCellIdentifier];
         [self.operateView addSubview:_photoTableView];
         
         [_photoTableView mas_makeConstraints:^(MASConstraintMaker *make) {

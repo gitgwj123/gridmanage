@@ -8,8 +8,6 @@
 
 #import "TLPhotoTableViewCell.h"
 #import "XLPaymentLoadingHUD.h"
-#import "XLPaymentSuccessHUD.h"
-#import "TLFailureHUD.h"
 
 NSString *TLPhotoTableViewCellIdentifier = @"TLPhotoTableViewCellIdentifier";
 
@@ -22,7 +20,7 @@ NSString *TLPhotoTableViewCellIdentifier = @"TLPhotoTableViewCellIdentifier";
 
 @property (nonatomic, strong) UILabel *imageNameLabel;
 @property (nonatomic, strong) UIView *loadStatusView;
-@property (nonatomic, strong) UIImageView *failImageView;
+@property (nonatomic, strong) UIImageView *loadImageView;
 
 @end
 
@@ -64,14 +62,17 @@ NSString *TLPhotoTableViewCellIdentifier = @"TLPhotoTableViewCellIdentifier";
     
     if (_loadStatusType == loadingType) {
         [XLPaymentLoadingHUD showIn:self.loadStatusView];
+        self.loadImageView.hidden = YES;
         self.loadStatusView.userInteractionEnabled = NO;
     } else if (_loadStatusType == loadSuccessType) {
-        [XLPaymentLoadingHUD hideIn:self.loadStatusView];
-        [XLPaymentSuccessHUD showIn:self.loadStatusView];
+       [XLPaymentLoadingHUD hideIn:self.loadStatusView];
+        self.loadImageView.hidden = NO;
+        self.loadImageView.image = [UIImage imageNamed:@"ic_upload_success"];
         self.loadStatusView.userInteractionEnabled = NO;
     } else if (_loadStatusType == loadFailureType) {
         [XLPaymentLoadingHUD hideIn:self.loadStatusView];
-        self.failImageView.hidden = NO;
+        self.loadImageView.hidden = NO;
+        self.loadImageView.image = [UIImage imageNamed:@"ic_warning"];
         self.loadStatusView.userInteractionEnabled = YES;
     }
 }
@@ -81,8 +82,8 @@ NSString *TLPhotoTableViewCellIdentifier = @"TLPhotoTableViewCellIdentifier";
     //上传图片失败时 loadStatusView可交互
     if (self.loadStatusViewTapBlock) {
         self.loadStatusViewTapBlock(_imageFilePath);
-        [TLFailureHUD hideIn:self.loadStatusView];
         [XLPaymentLoadingHUD showIn:self.loadStatusView];
+        self.loadImageView.hidden = YES;
         self.loadStatusView.userInteractionEnabled = NO;
     }
 }
@@ -106,19 +107,19 @@ NSString *TLPhotoTableViewCellIdentifier = @"TLPhotoTableViewCellIdentifier";
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loadStatusViewTapAction:)];
         [_loadStatusView addGestureRecognizer:tap];
         [self.contentView addSubview:_loadStatusView];
-        [self failImageView];
+        [self loadStatusView];
     }
     return _loadStatusView;
 }
 
-- (UIImageView *)failImageView {
+- (UIImageView *)loadImageView {
 
-    if (!_failImageView) {
-        _failImageView = [UIImageView addImageViewWithImageName:@"ic_warning" frame:CGRectMake(5, 5, 20, 20)];
-        _failImageView.hidden = YES;
-        [self.loadStatusView addSubview:_failImageView];
+    if (!_loadImageView) {
+        _loadImageView = [UIImageView addImageViewWithImageName:@"ic_warning" frame:CGRectMake(5, 5, 20, 20)];
+        _loadImageView.hidden = YES;
+        [self.loadStatusView addSubview:_loadImageView];
     }
-    return _failImageView;
+    return _loadImageView;
 }
 
 - (void)awakeFromNib {

@@ -37,6 +37,7 @@
     [super viewWillAppear:animated];
     UIImage *image = [[UIImage alloc]initWithContentsOfFile:_imageFilePath];
     self.imageView.image = image;
+    
 }
 
 - (void)didReceiveMemoryWarning {

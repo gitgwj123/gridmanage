@@ -10,4 +10,6 @@
 
 @interface TLAttachmentViewController : BaseViewController
 
+-(instancetype)initWithTaskId:(NSString *)taskId;
+
 @end

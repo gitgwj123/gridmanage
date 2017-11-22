@@ -22,6 +22,7 @@
 #import "StaticHeader.h"
 #import "RequestManager.h"
 #import "TLPatrolTimeManager.h"
+#import "SaveImageManager.h"
 #import "TLAccountPwdManager.h"
 #import "TLAlert.h"
 

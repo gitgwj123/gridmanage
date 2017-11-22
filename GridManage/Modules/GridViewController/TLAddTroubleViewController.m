@@ -203,6 +203,7 @@ static NSInteger const labelWidth_KEY = 80;
             TLPhotoModel *newModel = [[TLPhotoModel alloc] init];
             newModel.filePath = path;
             newModel.type = status;
+            newModel.photoType = model.photoType;
             [self.photoArray replaceObjectAtIndex:i withObject:newModel];
             break;
         }
@@ -447,6 +448,7 @@ static NSInteger const labelWidth_KEY = 80;
                 TLPhotoModel *model = [[TLPhotoModel alloc] init];
                 model.filePath = imageFile;
                 model.type = loadingType;
+                model.photoType = photoType_publish;
                 [self.photoArray addObject:model];
                 
                 CGSize size = self.scrollView.contentSize;
@@ -506,8 +508,8 @@ static NSInteger const labelWidth_KEY = 80;
     if (!cell) {
         cell = [[TLPhotoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TLPhotoTableViewCellIdentifier];
     }
-    NSDictionary *dic = self.photoArray[indexPath.row];
-    [cell setupPhotoTableViewCellWithImageFilePath:dic[@"imageFilePath"] loadStatusType:[dic[@"loadStatusType"] integerValue]];
+    TLPhotoModel *model = self.photoArray[indexPath.row];
+    [cell setupPhotoTableViewCellWithImageFilePath:model.filePath loadStatusType:model.type];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.loadStatusViewTapBlock = ^(NSString *imageFilePath) {
         [self uploadImageWithImageFilePath:imageFilePath];
@@ -518,8 +520,8 @@ static NSInteger const labelWidth_KEY = 80;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSDictionary *dic = self.photoArray[indexPath.row];
-    TLPhotoViewController *photoVc = [[TLPhotoViewController alloc] initWithImageFilePath:dic[@"imageFilePath"]];
+    TLPhotoModel *model = self.photoArray[indexPath.row];
+    TLPhotoViewController *photoVc = [[TLPhotoViewController alloc] initWithImageFilePath:model.filePath];
     
     [self.navigationController pushViewController:photoVc animated:YES];
 }
@@ -863,7 +865,7 @@ static NSInteger const labelWidth_KEY = 80;
 - (UIView *)cancelView {
     if (!_cancelView) {
         _cancelView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 30)];
-        _cancelView.backgroundColor = [UIColor grayColor];
+        _cancelView.backgroundColor = SYSTEM_TabBar_COLOR;
         _cancelView.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelViewTapAction:)];
         [_cancelView addGestureRecognizer:tap];

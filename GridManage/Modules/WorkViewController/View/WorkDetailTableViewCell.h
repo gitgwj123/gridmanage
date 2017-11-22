@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "TLPhotoModel.h"
 
 extern NSString *WorkDetailTableViewCellIdentifier;
 
 @interface WorkDetailTableViewCell : UITableViewCell
 
-- (void)setupWorkDetailCellWithImageFilePath:(NSString *)imageFilePath loadStatusType:(TLloadImageType)type;
+- (void)setupWorkDetailCellWithPhotoModel:(TLPhotoModel *)photoModel;
 
 @end
