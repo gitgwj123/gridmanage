@@ -23,7 +23,6 @@
 #import "RequestManager.h"
 #import "RequestManager+DataParameters.h"
 #import "TLPatrolTimeManager.h"
-#import "SaveImageManager.h"
 #import "TLAccountPwdManager.h"
 #import "TLAlert.h"
 
@@ -43,6 +42,8 @@
 #import <WZLBadge/WZLBadgeImport.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <SDWebImage/UIImage+GIF.h>
+#import <SDWebImageManager.h>
+#import <UIImageView+WebCache.h>
 
 #import "IIDate.h"
 #import "YFRollingLabel.h"

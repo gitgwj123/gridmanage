@@ -368,23 +368,27 @@ static NSInteger const CameraView_Height = 60;
     TLPhotoModel *model;
     NSString *imageFilePath;
     NSString *imageFileName;
+    BOOL isLocal;
     NSString * documentsDirectoryPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     if ([tableView isEqual:self.publishTableView]) {
         model = self.publishPhotoArray[indexPath.row];
         imageFileName = [[model.filePath componentsSeparatedByString:@"/"] lastObject];
         imageFilePath = [NSString stringWithFormat:@"%@/%@", documentsDirectoryPath, imageFileName];
+        isLocal = NO;
     } else if ([tableView isEqual:self.operateTableView]) {
         model = self.operatePhotoArray[indexPath.row];
         imageFileName = [[model.filePath componentsSeparatedByString:@"/"] lastObject];
         imageFilePath = [NSString stringWithFormat:@"%@/%@", documentsDirectoryPath, imageFileName];
+        isLocal = NO;
     }
     else {
         model = self.photoArray[indexPath.row];
         imageFilePath = model.filePath;
+        isLocal = YES;
     }
     
     if (model.type == loadSuccessType) {
-        TLPhotoViewController *photoVc = [[TLPhotoViewController alloc] initWithImageFilePath:imageFilePath];
+        TLPhotoViewController *photoVc = [[TLPhotoViewController alloc] initWithImageFilePath:imageFilePath isLocal:isLocal];
         
         [self.navigationController pushViewController:photoVc animated:YES];
     }

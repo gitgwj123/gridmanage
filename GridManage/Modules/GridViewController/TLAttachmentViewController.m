@@ -159,7 +159,7 @@
         NSString * documentsDirectoryPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         imageFileName = [[model.filePath componentsSeparatedByString:@"/"] lastObject];
         imageFilePath = [NSString stringWithFormat:@"%@/%@", documentsDirectoryPath, imageFileName];
-        TLPhotoViewController *photoVc = [[TLPhotoViewController alloc] initWithImageFilePath:model.filePath];
+        TLPhotoViewController *photoVc = [[TLPhotoViewController alloc] initWithImageFilePath:model.filePath isLocal:NO];
         
         [self.navigationController pushViewController:photoVc animated:YES];
     }

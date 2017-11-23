@@ -10,6 +10,6 @@
 
 @interface TLPhotoViewController : BaseViewController
 
--(instancetype)initWithImageFilePath:(NSString *)path;
+-(instancetype)initWithImageFilePath:(NSString *)path isLocal:(BOOL)isLocal;
 
 @end

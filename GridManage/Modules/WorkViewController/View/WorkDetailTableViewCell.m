@@ -65,7 +65,18 @@ NSString *WorkDetailTableViewCellIdentifier = @"WorkDetailTableViewCellIdentifie
         [XLPaymentLoadingHUD showIn:self.loadStatusView];
         self.loadImageView.hidden = YES;
         self.loadStatusView.userInteractionEnabled = NO;
-        [self downloadImageAndLocalSave];
+        [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:_photoModel.filePath] options:SDWebImageLowPriority progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+            
+        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+            TLPhotoModel *model = _photoModel;
+            if (image) {
+                model.type = loadSuccessType;
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"WorkDetailCellDownloadNotification" object:model];
+            } else {
+                model.type = loadFailureType;
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"WorkDetailCellDownloadNotification" object:model];
+            }
+        }];
     } else if (type == loadSuccessType) {
         [XLPaymentLoadingHUD hideIn:self.loadStatusView];
         self.loadImageView.hidden = NO;
@@ -77,22 +88,6 @@ NSString *WorkDetailTableViewCellIdentifier = @"WorkDetailTableViewCellIdentifie
         self.loadImageView.image = [UIImage imageNamed:@"ic_warning"];
         self.loadStatusView.userInteractionEnabled = YES;
     }
-}
-
-- (void)downloadImageAndLocalSave {
-    TLPhotoModel *model = _photoModel;
-
-   UIImage *image = [[SaveImageManager sharedManager] getImageFromURL: _photoModel.filePath];
-     NSString * documentsDirectoryPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    [[SaveImageManager sharedManager] saveImage:image withFileName:self.imageNameLabel.text ofType:@"jpg" inDirectory:documentsDirectoryPath saveBlock:^(BOOL success) {
-        if (success) {
-            model.type = loadSuccessType;
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"WorkDetailCellDownloadNotification" object:model];
-        } else {
-             model.type = loadFailureType;
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"WorkDetailCellDownloadNotification" object:model];
-        }
-    }];
 }
 
 #pragma mark - action

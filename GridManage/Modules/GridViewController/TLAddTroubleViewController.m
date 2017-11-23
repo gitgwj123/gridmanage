@@ -482,7 +482,7 @@ static NSInteger const labelWidth_KEY = 80;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     TLPhotoModel *model = self.photoArray[indexPath.row];
-    TLPhotoViewController *photoVc = [[TLPhotoViewController alloc] initWithImageFilePath:model.filePath];
+    TLPhotoViewController *photoVc = [[TLPhotoViewController alloc] initWithImageFilePath:model.filePath isLocal:YES];
     
     [self.navigationController pushViewController:photoVc animated:YES];
 }

@@ -33,6 +33,10 @@
     [self hideBackButtonTitle];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self networkStopLoad:self.view animated:YES]; //避免忘记移除 Loading HUD
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -13,6 +13,7 @@
 
 {
     NSString *_imageFilePath;
+    BOOL _isLocal;
 }
 
 @property (nonatomic, strong) UIImageView *imageView;
@@ -35,9 +36,13 @@
 - (void)viewWillAppear:(BOOL)animated {
 
     [super viewWillAppear:animated];
-    UIImage *image = [[UIImage alloc]initWithContentsOfFile:_imageFilePath];
-    self.imageView.image = image;
-    
+    if (_isLocal) {
+        UIImage *image = [[UIImage alloc]initWithContentsOfFile:_imageFilePath];
+        self.imageView.image = image;
+    } else {
+        
+        [self.imageView sd_setImageWithURL:[NSURL URLWithString:_imageFilePath]];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,11 +51,12 @@
 }
 
 
--(instancetype)initWithImageFilePath:(NSString *)path{
+-(instancetype)initWithImageFilePath:(NSString *)path isLocal:(BOOL)isLocal{
 
     self = [super init];
     if (self) {
         _imageFilePath = path;
+        _isLocal = isLocal;
     }
     return self;
 }
