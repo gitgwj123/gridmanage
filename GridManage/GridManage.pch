@@ -31,7 +31,7 @@
 #define screenWidth [UIScreen mainScreen].bounds.size.width
 #define screenHeight [UIScreen mainScreen].bounds.size.height
 #define paddingK    10
-#define statusBarAndNavBarHeight 64
+#define statusBarAndNavBarHeight [[UIApplication sharedApplication] statusBarFrame].size.height + 44
 
 
 
