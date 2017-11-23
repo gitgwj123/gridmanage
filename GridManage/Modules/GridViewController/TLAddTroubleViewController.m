@@ -110,45 +110,6 @@ static NSInteger const labelWidth_KEY = 80;
     
 }
 
-
-//拼接设备ID data参数
-- (NSString *)getDeviceNameParameterWithDeviceId:(NSString *)deviceId {
-    
-    NSMutableDictionary *dataDic = [[NSMutableDictionary alloc] init];
-    
-    [dataDic setObject:@"" forKey:@"OrderBy"];
-    [dataDic setObject:@"999999" forKey:@"PageSize"];
-    [dataDic setObject:@"1" forKey:@"PageStart"];
-    [dataDic setObject:@"deviceinfo" forKey:@"ViewName"];
-    
-    NSArray *dataArray = @[@{@"FieldKey":@"0", @"Fields":@"id", @"JoinKey":@"2", @"ValueKey":deviceId}];//传入的参数deviceId
-    
-    NSString *dataArrStr = [NSString convertToJSONData:dataArray];
-    NSString *dataArrSSS = [dataArrStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    [dataDic setObject:dataArrSSS forKey:@"WhereClause"];
-    
-    return [NSString convertToJSONData:dataDic];
-}
-
-//拼接设备子类 data参数
-- (NSString *)getDeviceTroubleSubclassParameter {
-    
-    NSMutableDictionary *dataDic = [[NSMutableDictionary alloc] init];
-    
-    [dataDic setObject:@"" forKey:@"OrderBy"];
-    [dataDic setObject:@"999999" forKey:@"PageSize"];
-    [dataDic setObject:@"1" forKey:@"PageStart"];
-    [dataDic setObject:@"problemtypeinfo" forKey:@"ViewName"];
-    
-     NSArray *dataArray = @[@{@"FieldKey":@"0", @"Fields":@"classificationId", @"JoinKey":@"2", @"ValueKey":_classificationid}];//传入的参数classificationId
-
-    NSString *dataArrStr = [NSString convertToJSONData:dataArray];
-    NSString *dataArrSSS = [dataArrStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    [dataDic setObject:dataArrSSS forKey:@"WhereClause"];
-    
-    return [NSString convertToJSONData:dataDic];
-}
-
 - (NSString *)getProblemImageLink {
 
     if (!_imageFileName) {
@@ -530,7 +491,7 @@ static NSInteger const labelWidth_KEY = 80;
 #pragma mark - network
 - (void)requestTroubleDeviceNameWithDeviceId:(NSString *)deviceId {
 
-    NSString *dataStr = [self getDeviceNameParameterWithDeviceId:deviceId];
+    NSString *dataStr = [[RequestManager sharedManager] getDeviceNameParameterWithDeviceId:deviceId];
     
     [self networkStartLoad:self.view animated:YES];
     WeakSelf;
@@ -557,7 +518,7 @@ static NSInteger const labelWidth_KEY = 80;
 
 - (void)requestDeviceTroubleSubclass {
    
-    NSString *dataStr = [self getDeviceTroubleSubclassParameter];
+    NSString *dataStr = [[RequestManager sharedManager] getDeviceTroubleSubclassParameterWithClassificationId:_classificationid];
     
     [self networkStartLoad:self.view animated:YES];
     WeakSelf;
@@ -612,7 +573,6 @@ static NSInteger const labelWidth_KEY = 80;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [strongSelf.photoTableView reloadData];
             });
-
         }
     }];
 }

@@ -17,61 +17,6 @@
      [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:size],NSForegroundColorAttributeName: color}];
 }
 
-- (UIView *)setTitleViewWithItems:(NSArray *)items {
-
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake((screenWidth - 180)/2, 22, 180, 36)];
-    view.backgroundColor = [UIColor clearColor];
-    [self addSegmentControlWithItems:items superView:view];
-    
-    return view;
-    
-}
-
-- (void)addSegmentControlWithItems:(NSArray *)items superView:(UIView *)view {
-
-    UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:items];;
-    
-    [segmentControl addTarget:self action:@selector(segmentControlAction:) forControlEvents:UIControlEventValueChanged];
-    [segmentControl setTintColor:SYSTEM_COLOR];
-    [segmentControl setSelectedSegmentIndex:0];
-
-    [segmentControl setTitleTextAttributes:@{NSForegroundColorAttributeName:SYSTEM_COLOR, NSFontAttributeName : FONT(18)}
-                                     forState:UIControlStateNormal];
-    NSDictionary *selectedAttributesDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                  [UIColor whiteColor],
-                                                  NSForegroundColorAttributeName,
-                                                  FONT(18), NSFontAttributeName,
-                                                  nil];
-    [segmentControl setTitleTextAttributes:selectedAttributesDictionary forState:UIControlStateSelected];
-    
-    [segmentControl setWidth:80 forSegmentAtIndex:0];
-    [segmentControl setWidth:80 forSegmentAtIndex:1];
-    
-    
-   // [self setupSegmentBorder:segmentControl];
-    [view addSubview:segmentControl];
-    [segmentControl mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.offset(0);
-        make.left.offset(0);
-        make.height.offset(view.frame.size.height);
-        make.width.offset(view.frame.size.width);
-    }];
-
-}
-
-//- (void)setupSegmentBorder:(UISegmentedControl *)segmentControl {
-//   
-//    for (int i = 0; i < segmentControl.subviews.count; i++) {
-//        UIControl *component = [segmentControl.subviews objectAtIndex:i];
-//        if ([component respondsToSelector:@selector(isSelected)]) {
-//            UIColor *selectedColor = SYSTEM_COLOR;
-//            UIColor *normalColor   = SYSTEM_COLOR;
-//            UIColor *tint = component.isSelected ? selectedColor : normalColor;
-//            [component setTintColor:tint];
-//        }
-//    }
-//}
-
 //添加右侧按钮
 - (UIBarButtonItem *)addRightBarButtonItemWithImage:(UIImage *)image {
     return [self addRightBarButtonItemWithImage: image
@@ -103,7 +48,6 @@
     
     return rightItem;
 }
-
 
 - (UIBarButtonItem *) addRightBarButtonItemWithTitle:(NSString *)title {
     return [self addRightBarButtonItemWithTitle: title titleColor:[UIColor whiteColor]
@@ -156,9 +100,9 @@
                                context: nil].size.width;
 }
 
-- (void)segmentControlAction:(UISegmentedControl *)segmentControl {
-   // [self setupSegmentBorder:segmentControl];
-   
-}
+//- (void)segmentControlAction:(UISegmentedControl *)segmentControl {
+//   // [self setupSegmentBorder:segmentControl];
+//
+//}
 
 @end

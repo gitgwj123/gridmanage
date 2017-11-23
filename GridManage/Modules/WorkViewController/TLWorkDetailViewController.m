@@ -217,44 +217,6 @@ static NSInteger const CameraView_Height = 60;
     [self uploadImageWithImageFilePath:imageFile];
 }
 
-- (NSString *)getMonitorfilesDataParameter {
-    
-    NSMutableDictionary *dataDic = [[NSMutableDictionary alloc] init];
-    
-    [dataDic setObject:@"999999" forKey:@"PageSize"];
-    [dataDic setObject:@"1" forKey:@"PageStart"];
-    [dataDic setObject:@"jobmonitorfilesviewinfo" forKey:@"ViewName"];
-    [dataDic setObject:@"" forKey:@"OrderBy"];
-    
-    NSMutableArray *whereClauseArr = [[NSMutableArray alloc] init];
-    [whereClauseArr addObject:@{@"FieldKey":@"0", @"Fields":@"jobsid", @"JoinKey":@"2", @"ValueKey":_myTaskModel.jobsid}];//传入的参数
-    
-    NSString *whereClauseArrStr = [NSString convertToJSONData:whereClauseArr];
-    NSString *whereClause = [whereClauseArrStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    [dataDic setObject:whereClause forKey:@"WhereClause"];
-    
-    return [NSString convertToJSONData:dataDic];
-}
-
-- (NSString *)getOperatorfilesDataParameter {
-
-    NSMutableDictionary *dataDic = [[NSMutableDictionary alloc] init];
-    
-    [dataDic setObject:@"999999" forKey:@"PageSize"];
-    [dataDic setObject:@"1" forKey:@"PageStart"];
-    [dataDic setObject:@"joboperatorfilesinfo" forKey:@"ViewName"];
-    [dataDic setObject:@"" forKey:@"OrderBy"];
-    
-    NSMutableArray *whereClauseArr = [[NSMutableArray alloc] init];
-    [whereClauseArr addObject:@{@"FieldKey":@"0", @"Fields":@"joboperatorsid", @"JoinKey":@"2", @"ValueKey":_myTaskModel.joboperatorsid}];//传入的参数
-    
-    NSString *whereClauseArrStr = [NSString convertToJSONData:whereClauseArr];
-    NSString *whereClause = [whereClauseArrStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    [dataDic setObject:whereClause forKey:@"WhereClause"];
-    
-    return [NSString convertToJSONData:dataDic];
-}
-
 - (void)configTopView {
     
     [self setupImageViewAndOperateLabelWithStutas:_myTaskModel.taskstatus];
@@ -294,16 +256,6 @@ static NSInteger const CameraView_Height = 60;
         self.operateLabel.text = @"重新开始";
         self.operateLabel.backgroundColor = Saffron_Yellow_COLOR;
     }
-}
-
-
-- (NSString *)getPublishTaskCommandDataParameter {
-    
-    NSDictionary *dataDic = @{@"jobsId":_myTaskModel.jobsid, @"note":_myTaskModel.note, @"opType":_changedTaskStutas, @"opormotId":_myTaskModel.joboperatorsid, @"ssId":@"", @"taskId":_myTaskModel.tasksid, @"usersId":[TLStorage getUserId]};
-    
-    NSString *dataStr = [[NSString convertToJSONData:dataDic] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    
-    return dataStr;
 }
 
 - (void)updateOperateLabel {
@@ -503,9 +455,9 @@ static NSInteger const CameraView_Height = 60;
 }
 
 - (void)requestPublishTaskCommand {
-    
-    NSString *dataStr = [self getPublishTaskCommandDataParameter];
-    
+
+     NSString *dataStr = [[RequestManager sharedManager] getPublishTaskCommandDataParameterWithJobsId:_myTaskModel.jobsid note:_myTaskModel.note opType:_changedTaskStutas joboperatorsid:_myTaskModel.joboperatorsid tasksid:_myTaskModel.tasksid usersId:[TLStorage getUserId]];
+
     [self networkStartLoad:self.view animated:YES];
     WeakSelf;
     [[RequestManager sharedManager] performBasicRequest:@{@"token":[TLStorage getToken], @"time":@"1",@"data":dataStr,  @"hash":[TLStorage getHash], @"opeCode":@"202"} withURL:TLRequestUrlPublishTaskCommand responseBlock:^(BOOL isSuccessful, int code, NSString *message, NSString *hash, id data) {
@@ -528,7 +480,7 @@ static NSInteger const CameraView_Height = 60;
 
 
 - (void)requestMonitorfiles {
-    NSString *dataStr = [self getMonitorfilesDataParameter];
+    NSString *dataStr = [[RequestManager sharedManager] getMonitorfilesDataParameterWithJobsid:_myTaskModel.jobsid];
     
     [self networkStartLoad:self.view animated:YES];
     WeakSelf;
@@ -589,7 +541,7 @@ static NSInteger const CameraView_Height = 60;
 
 - (void)requestOperatorfiles {
     
-    NSString *dataStr = [self getOperatorfilesDataParameter];
+    NSString *dataStr = [[RequestManager sharedManager] getOperatorfilesDataParameterWithJoboperatorsid:_myTaskModel.joboperatorsid];
     
     [self networkStartLoad:self.view animated:YES];
     WeakSelf;

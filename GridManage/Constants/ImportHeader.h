@@ -21,6 +21,7 @@
 #import "EnumTypes.h"
 #import "StaticHeader.h"
 #import "RequestManager.h"
+#import "RequestManager+DataParameters.h"
 #import "TLPatrolTimeManager.h"
 #import "SaveImageManager.h"
 #import "TLAccountPwdManager.h"

@@ -71,6 +71,7 @@
 		E0AAE7271FB04BB6003F8EDB /* TLPatrolItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0AAE7261FB04BB6003F8EDB /* TLPatrolItemTableViewCell.m */; };
 		E0AAE72A1FB04BCA003F8EDB /* TLPatrolItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0AAE7291FB04BCA003F8EDB /* TLPatrolItemViewController.m */; };
 		E0B0E20F1FC55DC000303FFC /* SaveImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B0E20E1FC55DC000303FFC /* SaveImageManager.m */; };
+		E0B0E2121FC578B600303FFC /* RequestManager+DataParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B0E2111FC578B600303FFC /* RequestManager+DataParameters.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -226,6 +227,8 @@
 		E0AAE7291FB04BCA003F8EDB /* TLPatrolItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLPatrolItemViewController.m; sourceTree = "<group>"; };
 		E0B0E20D1FC55DC000303FFC /* SaveImageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaveImageManager.h; sourceTree = "<group>"; };
 		E0B0E20E1FC55DC000303FFC /* SaveImageManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SaveImageManager.m; sourceTree = "<group>"; };
+		E0B0E2101FC578B600303FFC /* RequestManager+DataParameters.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RequestManager+DataParameters.h"; sourceTree = "<group>"; };
+		E0B0E2111FC578B600303FFC /* RequestManager+DataParameters.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RequestManager+DataParameters.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -501,6 +504,8 @@
 				E0404E481FB816B0006F2812 /* RequestManager.m */,
 				E0404E4A1FB816DB006F2812 /* RequestManager+UploadImage.h */,
 				E0404E4B1FB816DB006F2812 /* RequestManager+UploadImage.m */,
+				E0B0E2101FC578B600303FFC /* RequestManager+DataParameters.h */,
+				E0B0E2111FC578B600303FFC /* RequestManager+DataParameters.m */,
 			);
 			path = RequestManager;
 			sourceTree = "<group>";
@@ -904,6 +909,7 @@
 				E0404E5F1FB9235D006F2812 /* TLPhotoTableViewCell.m in Sources */,
 				E0404E8E1FB9C299006F2812 /* TLMyTaskTableViewCell.m in Sources */,
 				E0404EB81FBD7CF9006F2812 /* NSString+StartAndEndTime.m in Sources */,
+				E0B0E2121FC578B600303FFC /* RequestManager+DataParameters.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1059,6 +1065,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = C9A273V6SS;
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GridManage/GridManage.pch";
 				INFOPLIST_FILE = GridManage/Info.plist;
@@ -1078,6 +1085,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = C9A273V6SS;
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GridManage/GridManage.pch";
 				INFOPLIST_FILE = GridManage/Info.plist;

@@ -18,8 +18,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.navigationItem.titleView = [self setTitleViewWithItems:@[@"代办实现", @"系统提示"]];
-    
+    self.segmentItems = @[@"待办事项", @"系统提示"];
+    self.navigationItem.titleView = self.titleView;
 }
 
 - (void)didReceiveMemoryWarning {

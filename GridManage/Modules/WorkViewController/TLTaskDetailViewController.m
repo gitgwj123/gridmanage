@@ -95,25 +95,6 @@ static NSInteger const btnWidth_Work_key = 90;
 
 
 #pragma mark - private
-- (NSString *)getWorkTaskDetailDataParameter {
-    
-    NSMutableDictionary *dataDic = [[NSMutableDictionary alloc] init];
-    
-    [dataDic setObject:@"999999" forKey:@"PageSize"];
-    [dataDic setObject:@"1" forKey:@"PageStart"];
-    [dataDic setObject:@"joboperatorsviewinfo" forKey:@"ViewName"];
-    [dataDic setObject:@"" forKey:@"OrderBy"];
-    
-    NSMutableArray *whereClauseArr = [[NSMutableArray alloc] init];
-    [whereClauseArr addObject:@{@"FieldKey":@"0", @"Fields":@"tasksid", @"JoinKey":@"2", @"ValueKey":_taskId}];//传入的参数taskId
-    
-    NSString *whereClauseArrStr = [NSString convertToJSONData:whereClauseArr];
-    NSString *whereClause = [whereClauseArrStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    [dataDic setObject:whereClause forKey:@"WhereClause"];
-    
-    return [NSString convertToJSONData:dataDic];
-}
-
 - (void)configTopViewWithData:(NSDictionary *)dataDic {
  
     _taskName = dataDic[@"taskname"];
@@ -151,7 +132,7 @@ static NSInteger const btnWidth_Work_key = 90;
 //请求监控数据
 - (void)requestWorkTaskDetail {
     
-    NSString *dataStr = [self getWorkTaskDetailDataParameter];
+    NSString *dataStr = [[RequestManager sharedManager] getWorkTaskDetailDataParameterWithTaskId:_taskId];
     
     [self networkStartLoad:self.view animated:YES];
     WeakSelf;

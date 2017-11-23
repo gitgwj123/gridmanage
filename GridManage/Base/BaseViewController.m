@@ -10,7 +10,6 @@
 
 @interface BaseViewController ()
 
-
 @end
 
 @implementation BaseViewController
@@ -25,8 +24,7 @@
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:SYSTEM_COLOR, NSFontAttributeName:FONT(18)};
     
     [self notiLabel];
-
-   }
+}
 
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -86,8 +84,46 @@
     
 }
 
+- (void)segmentControlAction:(UISegmentedControl *)segmentControl {
+    // [self setupSegmentBorder:segmentControl];
+    
+}
 
 #pragma mark - lazy loading
+- (UIView *)titleView {
+    if (!_titleView) {
+        _titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 180, 36)];
+        _titleView.backgroundColor = [UIColor clearColor];
+        [self segmentedControl];
+    }
+    return _titleView;
+}
+
+- (UISegmentedControl *)segmentedControl {
+    
+    if (!_segmentedControl) {
+        UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:self.segmentItems];
+        [self.titleView addSubview:segmentControl];
+        [segmentControl addTarget:self action:@selector(segmentControlAction:) forControlEvents:UIControlEventValueChanged];
+        [segmentControl setTintColor:SYSTEM_COLOR];
+        [segmentControl setSelectedSegmentIndex:0];
+        
+        [segmentControl setTitleTextAttributes:@{NSForegroundColorAttributeName:SYSTEM_COLOR, NSFontAttributeName : FONT(18)}
+                                      forState:UIControlStateNormal];
+        NSDictionary *selectedAttributesDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                      [UIColor whiteColor],
+                                                      NSForegroundColorAttributeName,
+                                                      FONT(18), NSFontAttributeName,
+                                                      nil];
+        [segmentControl setTitleTextAttributes:selectedAttributesDictionary forState:UIControlStateSelected];
+        
+        [segmentControl setWidth:80 forSegmentAtIndex:0];
+        [segmentControl setWidth:80 forSegmentAtIndex:1];
+    }
+    
+    return _segmentedControl;
+}
+
 - (UILabel *)notiLabel {
 
     if (!_notiLabel) {

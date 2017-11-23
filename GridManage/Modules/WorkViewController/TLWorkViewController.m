@@ -10,19 +10,13 @@
 #import "TLSettingViewController.h"
 #import "TLTaskDetailViewController.h"
 #import "TLWorkDetailViewController.h"
-
 #import "MyTaskModel.h"
 #import "TLMyTaskTableViewCell.h"
-
 #import "TaskMonitorModel.h"
 #import "TaskMonitorTableViewCell.h"
-
 #import "TLTaskStatusView.h"
 
-
-
 @interface TLWorkViewController ()<UITableViewDelegate, UITableViewDataSource, TLTaskStatusViewDelegate>
-
 {
     MyTaskModel *_publishTaskTaskModel;
     NSString *_changedTaskStutas;
@@ -58,7 +52,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.navigationItem.titleView = [self setTitleViewWithItems:@[@"我的任务", @"任务监控"]];
+    self.segmentItems = @[@"我的任务", @"任务监控"];
+    self.navigationItem.titleView = self.titleView;
+    
     [self configNavBarRightItem];
     
     _isDisplayTableView = YES;
@@ -213,66 +209,7 @@
     self.display2TableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self requestWorkMonitor];
     }];
-    
     self.display2TableView.hidden = YES;
-    
-}
-
-- (NSString *)getPublishTaskCommandDataParameter {
-
-    NSDictionary *dataDic = @{@"jobsId":_publishTaskTaskModel.jobsid, @"note":_publishTaskTaskModel.note, @"opType":_changedTaskStutas, @"opormotId":_publishTaskTaskModel.joboperatorsid, @"ssId":@"", @"taskId":_publishTaskTaskModel.tasksid, @"usersId":[TLStorage getUserId]};
-    
-    NSString *dataStr = [[NSString convertToJSONData:dataDic] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    
-    return dataStr;
-}
-
-- (NSString *)getMyWorkTasksDataParameter {
-    
-    NSMutableDictionary *dataDic = [[NSMutableDictionary alloc] init];
-    
-    [dataDic setObject:@"999999" forKey:@"PageSize"];
-    [dataDic setObject:@"1" forKey:@"PageStart"];
-    [dataDic setObject:@"joboperatorsviewinfo" forKey:@"ViewName"];
-    
-    NSArray *orderByArr = @[@{@"Field":@"planstarttime", @"Mode":@"1"}];
-    NSString *orderByArrStr = [NSString convertToJSONData:orderByArr];
-    NSString *orderBy = [orderByArrStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    [dataDic setObject:orderBy forKey:@"OrderBy"];
-    
-    NSMutableArray *whereClauseArr = [[NSMutableArray alloc] init];
-    [whereClauseArr addObject:@{@"FieldKey":@"0", @"Fields":@"teamsid", @"JoinKey":@"0", @"ValueKey":[TLStorage getTeamId]}];//传入的参数teamId
-    [whereClauseArr addObject:@{@"FieldKey":@"0", @"Fields":@"taktype", @"JoinKey":@"2", @"ValueKey":@"3"}];
-    
-    NSString *whereClauseArrStr = [NSString convertToJSONData:whereClauseArr];
-    NSString *whereClause = [whereClauseArrStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    [dataDic setObject:whereClause forKey:@"WhereClause"];
-    
-    return [NSString convertToJSONData:dataDic];
-}
-
-- (NSString *)getWorkMonitorDataParameter {
-
-    NSMutableDictionary *dataDic = [[NSMutableDictionary alloc] init];
-    
-    [dataDic setObject:@"999999" forKey:@"PageSize"];
-    [dataDic setObject:@"1" forKey:@"PageStart"];
-    [dataDic setObject:@"taskinfo" forKey:@"ViewName"];
-    
-    NSArray *orderByArr = @[@{@"Field":@"planstarttime", @"Mode":@"1"}];
-    NSString *orderByArrStr = [NSString convertToJSONData:orderByArr];
-    NSString *orderBy = [orderByArrStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    [dataDic setObject:orderBy forKey:@"OrderBy"];
-    
-    NSMutableArray *whereClauseArr = [[NSMutableArray alloc] init];
-    [whereClauseArr addObject:@{@"FieldKey":@"0", @"Fields":@"monitorteamid", @"JoinKey":@"0", @"ValueKey":[TLStorage getTeamId]}];//传入的参数teamId
-    [whereClauseArr addObject:@{@"FieldKey":@"0", @"Fields":@"taktype", @"JoinKey":@"2", @"ValueKey":@"3"}];
-    
-    NSString *whereClauseArrStr = [NSString convertToJSONData:whereClauseArr];
-    NSString *whereClause = [whereClauseArrStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    [dataDic setObject:whereClause forKey:@"WhereClause"];
-    
-    return [NSString convertToJSONData:dataDic];
 }
 
 - (void)publishAlert {
@@ -313,12 +250,10 @@
             [self.finialmyTasksArray addObject:model];
         }
     }
-    
     [self.displayTableView reloadData];
 }
 
 - (void)matchTaskMonitorWithStatus:(NSString *)status {
-
     if ([status isEqualToString:@"全部"]) {
         [self.display2TableView reloadData];
         return;
@@ -339,7 +274,6 @@
             [self.finialTaskMonitorArray addObject:model];
         }
     }
-    
     [self.display2TableView reloadData];
 }
 
@@ -490,7 +424,7 @@
 #pragma mark - network
 - (void)requestPublishTaskCommand {
     
-    NSString *dataStr = [self getPublishTaskCommandDataParameter];
+    NSString *dataStr = [[RequestManager sharedManager] getPublishTaskCommandDataParameterWithJobsId:_publishTaskTaskModel.jobsid note:_publishTaskTaskModel.note opType:_changedTaskStutas joboperatorsid:_publishTaskTaskModel.joboperatorsid tasksid:_publishTaskTaskModel.tasksid usersId:[TLStorage getUserId]];
     
     [self networkStartLoad:self.view animated:YES];
     WeakSelf;
@@ -516,7 +450,7 @@
 - (void)requestMyWorkTasks {
 
     [self.displayTableView.mj_header endRefreshing];
-    NSString *dataStr = [self getMyWorkTasksDataParameter];
+    NSString *dataStr = [[RequestManager sharedManager] getMyWorkTasksDataParameterWithTeamsid:[TLStorage getTeamId]];
     [self networkStartLoad:self.view animated:YES];
     WeakSelf;
     [[RequestManager sharedManager] findByBaseConditionRequest:@{@"data":dataStr} withURL:TLRequestUrlFindByBaseCondition responseBlock:^(BOOL isSuccessful, int code, NSString *message, NSString *hash, id data) {
@@ -565,7 +499,7 @@
 
     [self.display2TableView.mj_header endRefreshing];
     
-    NSString *dataStr = [self getWorkMonitorDataParameter];
+    NSString *dataStr = [[RequestManager sharedManager] getWorkMonitorDataParameterWithTeamsid:[TLStorage getTeamId]];
     [self networkStartLoad:self.view animated:YES];
     WeakSelf;
     [[RequestManager sharedManager] findByBaseConditionRequest:@{@"data":dataStr} withURL:TLRequestUrlFindByBaseCondition responseBlock:^(BOOL isSuccessful, int code, NSString *message, NSString *hash, id data) {

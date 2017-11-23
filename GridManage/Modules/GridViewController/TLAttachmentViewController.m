@@ -96,61 +96,6 @@
 }
 
 #pragma mark - private
-- (NSString *)getJobsidDataParameter {
-    
-    NSMutableDictionary *dataDic = [[NSMutableDictionary alloc] init];
-    
-    [dataDic setObject:@"" forKey:@"OrderBy"];
-    [dataDic setObject:@"999999" forKey:@"PageSize"];
-    [dataDic setObject:@"1" forKey:@"PageStart"];
-    [dataDic setObject:@"joboperatorsviewinfo" forKey:@"ViewName"];
-    
-    NSArray *dataArray = @[@{@"FieldKey":@"0", @"Fields":@"tasksid", @"JoinKey":@"2", @"ValueKey":_taskId}];//传入的参数tasksid
-    
-    NSString *dataArrStr = [NSString convertToJSONData:dataArray];
-    NSString *dataArrSSS = [dataArrStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    [dataDic setObject:dataArrSSS forKey:@"WhereClause"];
-    
-    return [[NSString convertToJSONData:dataDic] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-}
-
-- (NSString *)getMonitorfilesDataParameter {
-    
-    NSMutableDictionary *dataDic = [[NSMutableDictionary alloc] init];
-    
-    [dataDic setObject:@"999999" forKey:@"PageSize"];
-    [dataDic setObject:@"1" forKey:@"PageStart"];
-    [dataDic setObject:@"jobmonitorfilesviewinfo" forKey:@"ViewName"];
-    [dataDic setObject:@"" forKey:@"OrderBy"];
-    
-    NSMutableArray *whereClauseArr = [[NSMutableArray alloc] init];
-    [whereClauseArr addObject:@{@"FieldKey":@"0", @"Fields":@"jobsid", @"JoinKey":@"2", @"ValueKey":_jobsid}];//传入的参数
-    
-    NSString *whereClauseArrStr = [NSString convertToJSONData:whereClauseArr];
-    NSString *whereClause = [whereClauseArrStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    [dataDic setObject:whereClause forKey:@"WhereClause"];
-    
-    return [NSString convertToJSONData:dataDic];
-}
-
-- (NSString *)getOperatorfilesDataParameter {
-    
-    NSMutableDictionary *dataDic = [[NSMutableDictionary alloc] init];
-    
-    [dataDic setObject:@"999999" forKey:@"PageSize"];
-    [dataDic setObject:@"1" forKey:@"PageStart"];
-    [dataDic setObject:@"joboperatorfilesinfo" forKey:@"ViewName"];
-    [dataDic setObject:@"" forKey:@"OrderBy"];
-    
-    NSMutableArray *whereClauseArr = [[NSMutableArray alloc] init];
-    [whereClauseArr addObject:@{@"FieldKey":@"0", @"Fields":@"joboperatorsid", @"JoinKey":@"2", @"ValueKey":_joboperatorsid}];//传入的参数
-    
-    NSString *whereClauseArrStr = [NSString convertToJSONData:whereClauseArr];
-    NSString *whereClause = [whereClauseArrStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    [dataDic setObject:whereClause forKey:@"WhereClause"];
-    
-    return [NSString convertToJSONData:dataDic];
-}
 
 #pragma mark - delegate
 //tableView delegate
@@ -223,7 +168,7 @@
 #pragma mark - network
 - (void)requestJobsid {
     
-    NSString *dataStr = [self getJobsidDataParameter];
+    NSString *dataStr = [[RequestManager sharedManager] getJobsidDataParameterWithTaskId:_taskId];
     [self networkStartLoad:self.view animated:YES];
     WeakSelf;
     [[RequestManager sharedManager] findByBaseConditionRequest:@{@"data":dataStr} withURL:TLRequestUrlFindByBaseCondition responseBlock:^(BOOL isSuccessful, int code, NSString *message, NSString *hash, id data) {
@@ -249,7 +194,7 @@
 }
 
 - (void)requestMonitorfiles {
-    NSString *dataStr = [self getMonitorfilesDataParameter];
+    NSString *dataStr = [[RequestManager sharedManager] getMonitorfilesDataParameterWithJobsid:_jobsid];
     
     [self networkStartLoad:self.view animated:YES];
     WeakSelf;
@@ -309,7 +254,7 @@
 
 - (void)requestOperatorfiles {
     
-    NSString *dataStr = [self getOperatorfilesDataParameter];
+    NSString *dataStr = [[RequestManager sharedManager] getOperatorfilesDataParameterWithJoboperatorsid:_joboperatorsid];
     
     [self networkStartLoad:self.view animated:YES];
     WeakSelf;

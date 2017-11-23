@@ -135,30 +135,9 @@ static NSInteger const startLabelWidth = 50;
             i++;
         }
     }
-    
     return i;
-
 }
 
-//拼接具体任务列表 data参数
-- (NSString *)getItemsListDataParameterWithPatrolId:(NSString *)patrolId {
-    
-    NSMutableDictionary *dataDic = [[NSMutableDictionary alloc] init];
-    
-    [dataDic setObject:@"" forKey:@"OrderBy"];
-    [dataDic setObject:@"999999" forKey:@"PageSize"];
-    [dataDic setObject:@"1" forKey:@"PageStart"];
-    [dataDic setObject:@"patrolDetailsViewinfo" forKey:@"ViewName"];//传入的参数patrolDetailsViewinfo
-    
-    NSMutableArray *dataArray = [[NSMutableArray alloc] init];
-    [dataArray addObject:@{@"FieldKey":@"0", @"Fields":@"patrolsid", @"JoinKey":@"2", @"ValueKey":patrolId}];//传入的参数patrolId
-    
-    NSString *dataArrStr = [NSString convertToJSONData:dataArray];
-    NSString *dataArrSSS = [dataArrStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    [dataDic setObject:dataArrSSS forKey:@"WhereClause"];
-    
-    return [NSString convertToJSONData:dataDic];
-}
 
 #pragma mark - delegate
 //tableView delegate
@@ -271,7 +250,7 @@ static NSInteger const startLabelWidth = 50;
 
      [self.displayTableView.mj_header endRefreshing];
     
-    NSString *dataStr = [self getItemsListDataParameterWithPatrolId:self.patrolId];
+    NSString *dataStr = [[RequestManager sharedManager] getItemsListDataParameterWithPatrolId:self.patrolId];
     
     [self networkStartLoad:self.view animated:YES];
     WeakSelf;

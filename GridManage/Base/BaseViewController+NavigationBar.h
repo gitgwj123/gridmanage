@@ -19,17 +19,6 @@
  */
 - (void)setNavigationBarTitleColor:(UIColor *)color fontSize:(NSUInteger)size;
 
-
-/**
- 设置titleView
- 
- @param items <#items description#>
- @return <#return value description#>
- */
-- (UIView *)setTitleViewWithItems:(NSArray *)items;
-
-- (void)segmentControlAction:(UISegmentedControl *)segmentControl;
-
 /**
  添加右侧按钮
 

@@ -45,14 +45,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.navigationItem.titleView = [self setTitleViewWithItems:@[@"巡视计划", @"问题管理"]];
+    self.segmentItems = @[@"巡视计划", @"问题管理"];
+    self.navigationItem.titleView = self.titleView;
     self.isDisplayTableView = YES;
     self.notiLabel.text = notiLabelText_notdata;
     
     [self descriptionView];
-    
     [self configDisplayTableView];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -144,94 +143,20 @@
 }
 
 //匹配蓝牙任务
-- (void)matchBluetoothId {
-    
-    if (self.pointTasksArray.count > 0) {
-        [self.pointTasksArray removeAllObjects];
-    }
-    
-    NSString *bluetoothid = @"12:3B:6A:1A:C3:85";
-    
-    for (PatrolModel *model in self.allTasksArray) {
-        if ([model.bluetoothid isEqualToString:bluetoothid]) {
-            [self.pointTasksArray addObject:model];
-        }
-    }
-}
-
-//拼接问题管理 data参数
-- (NSString *)getTroubleManageDataParameter {
-    
-    NSMutableDictionary *dataDic = [[NSMutableDictionary alloc] init];
-    
-    [dataDic setObject:@"999999" forKey:@"PageSize"];
-    [dataDic setObject:@"1" forKey:@"PageStart"];
-    [dataDic setObject:@"taskinfo" forKey:@"ViewName"];
-    
-    NSArray *orderByArr = @[@{@"Field":@"planstarttime", @"Mode":@"1"}];
-    NSString *orderByArrStr = [NSString convertToJSONData:orderByArr];
-    NSString *orderBy = [orderByArrStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    [dataDic setObject:orderBy forKey:@"OrderBy"];
-    
-    NSMutableArray *whereClauseArr = [[NSMutableArray alloc] init];
-    [whereClauseArr addObject:@{@"FieldKey":@"0", @"Fields":@"monitorteamid", @"JoinKey":@"0", @"ValueKey":[TLStorage getTeamId]}];//传入的参数teamId
-    [whereClauseArr addObject:@{@"FieldKey":@"0", @"Fields":@"taktype", @"JoinKey":@"2", @"ValueKey":@"3"}];
-    
-    NSString *whereClauseArrStr = [NSString convertToJSONData:whereClauseArr];
-    NSString *whereClause = [whereClauseArrStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    [dataDic setObject:whereClause forKey:@"WhereClause"];
-    
-    return [NSString convertToJSONData:dataDic];
-}
-
-//拼接巡视计划 data参数
-- (NSString *)getPatrolPlanDataParameter {
-    
-    NSMutableDictionary *dataDic = [[NSMutableDictionary alloc] init];
-    
-    [dataDic setObject:@"" forKey:@"OrderBy"];
-    [dataDic setObject:@"999999" forKey:@"PageSize"];
-    [dataDic setObject:@"1" forKey:@"PageStart"];
-    [dataDic setObject:@"patrolsviewinfo" forKey:@"ViewName"];
-    
-    NSMutableArray *dataArray = [[NSMutableArray alloc] init];
-    [dataArray addObject:@{@"FieldKey":@"0", @"Fields":@"teamid", @"JoinKey":@"0", @"ValueKey":[TLStorage getTeamId]}];//传入的参数teamId
-    [dataArray addObject:@{@"FieldKey":@"0", @"Fields":@"createdate", @"JoinKey":@"2", @"ValueKey":[IIDate getStringFromDate:[NSDate date] ofFormat:IIDateFormat1 timeZone:[NSTimeZone localTimeZone]]}];//传入的参数：年-月-日
-    
-    NSString *dataArrStr = [NSString convertToJSONData:dataArray];
-    NSString *dataArrSSS = [dataArrStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    [dataDic setObject:dataArrSSS forKey:@"WhereClause"];
-    
-    return [NSString convertToJSONData:dataDic];
-}
-
-- (NSString *)getPublishTaskCommandDataParameter {
-    
-    NSDictionary *dataDic = @{@"jobsId":_jobsid, @"note":_troubleManageModel.notes, @"opType":_changedTaskStutas, @"opormotId":_joboperatorsid, @"ssId":@"", @"taskId":_troubleManageModel.tasksid, @"usersId":[TLStorage getUserId]};
-    
-    NSString *dataStr = [[NSString convertToJSONData:dataDic] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    
-    return dataStr;
-}
-
-- (NSString *)getJobsidDataParameter {
-
-    NSMutableDictionary *dataDic = [[NSMutableDictionary alloc] init];
-    
-    [dataDic setObject:@"" forKey:@"OrderBy"];
-    [dataDic setObject:@"999999" forKey:@"PageSize"];
-    [dataDic setObject:@"1" forKey:@"PageStart"];
-    [dataDic setObject:@"joboperatorsviewinfo" forKey:@"ViewName"];
-    
-    NSArray *dataArray = @[@{@"FieldKey":@"0", @"Fields":@"tasksid", @"JoinKey":@"2", @"ValueKey":_taskId}];//传入的参数tasksid
-    
-    NSString *dataArrStr = [NSString convertToJSONData:dataArray];
-    NSString *dataArrSSS = [dataArrStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    [dataDic setObject:dataArrSSS forKey:@"WhereClause"];
-    
-    return [[NSString convertToJSONData:dataDic] stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-}
-
+//- (void)matchBluetoothId {
+//    
+//    if (self.pointTasksArray.count > 0) {
+//        [self.pointTasksArray removeAllObjects];
+//    }
+//    
+//    NSString *bluetoothid = @"12:3B:6A:1A:C3:85";
+//    
+//    for (PatrolModel *model in self.allTasksArray) {
+//        if ([model.bluetoothid isEqualToString:bluetoothid]) {
+//            [self.pointTasksArray addObject:model];
+//        }
+//    }
+//}
 
 #pragma mark - delegate
 //tableView delegate
@@ -322,7 +247,7 @@
 #pragma mark - network
 - (void)requestJobsid {
 
-    NSString *dataStr = [self getJobsidDataParameter];
+    NSString *dataStr = [[RequestManager sharedManager] getJobsidDataParameterWithTaskId:_taskId];
     [self networkStartLoad:self.view animated:YES];
     WeakSelf;
     [[RequestManager sharedManager] findByBaseConditionRequest:@{@"data":dataStr} withURL:TLRequestUrlFindByBaseCondition responseBlock:^(BOOL isSuccessful, int code, NSString *message, NSString *hash, id data) {
@@ -348,7 +273,7 @@
 
 - (void)requestPublishTaskCommand {
     
-    NSString *dataStr = [self getPublishTaskCommandDataParameter];
+    NSString *dataStr = [[RequestManager sharedManager] getPublishTaskCommandDataParameterWithJobsId:_jobsid note:_troubleManageModel.notes opType:_changedTaskStutas joboperatorsid:_joboperatorsid tasksid:_troubleManageModel.tasksid usersId:[TLStorage getUserId]];
     
     [self networkStartLoad:self.view animated:YES];
     WeakSelf;
@@ -375,7 +300,7 @@
 - (void)requestBaseCondition {
 
     [self.displayTableView.mj_header endRefreshing];
-    NSString *dataStr = [self getPatrolPlanDataParameter];
+    NSString *dataStr = [[RequestManager sharedManager] getPatrolPlanDataParameterWithTeamId:[TLStorage getTeamId]];
     
     [self networkStartLoad:self.view animated:YES];
     WeakSelf;
@@ -434,7 +359,7 @@
 
     [self.display2TableView.mj_header endRefreshing];
     
-    NSString *dataStr = [self getTroubleManageDataParameter];
+    NSString *dataStr = [[RequestManager sharedManager] getTroubleManageDataParameterWithTeamId:[TLStorage getTeamId]];
     
     [self networkStartLoad:self.view animated:YES];
     WeakSelf;

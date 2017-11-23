@@ -49,22 +49,14 @@
     [headView addSubview:imageView];
       
     [self.view addSubview: [UILabel addLabelWithText:[TLStorage getUsername] textColor:SYSTEM_COLOR frame:CGRectMake(80, statusBarAndNavBarHeight + 30, 160, 30)]];
-    
     [self.view addSubview: [UIImageView addImageViewWithImageName:@"bg_shadow" frame:CGRectMake(0, statusBarAndNavBarHeight + 90, screenWidth, 10)]];
-    
     [self changePwdView];
-    
     [self.view addSubview: [UIImageView addImageViewWithImageName:@"bg_shadow" frame:CGRectMake(0, statusBarAndNavBarHeight + 150, screenWidth, 10)]];
-    
     [self quitBtn];
-    
     [self.view addSubview: [UIImageView addImageViewWithImageName:@"bg_shadow" frame:CGRectMake(0, statusBarAndNavBarHeight + 210, screenWidth, 10)]];
 }
 
 #pragma mark - private methods
-
-
-
 
 #pragma mark - actions
 - (void)changePwdViewTapAction:(UITapGestureRecognizer *)tap {
@@ -81,14 +73,10 @@
         StrongSelf;
         [strongSelf networkStopLoad:strongSelf.view animated:YES];
         if (isSuccessful) {
-         
             MyLog(@"注销成功");
-            
             TLLoginViewController *loginVc = [[TLLoginViewController alloc] init];
             UINavigationController *loginNav = [[UINavigationController alloc] initWithRootViewController:loginVc];
              [[[UIApplication sharedApplication] delegate] window].rootViewController = loginNav;
-
-
         } else {
             [TLAlert showMessage:@"注销失败" hideDelay:3 inView:strongSelf.view];
         }
@@ -113,7 +101,6 @@
         [_changePwdView addSubview:[UILabel addLabelWithText:@"修改密码" textColor:[UIColor whiteColor] frame:CGRectMake(paddingK, 10, 100, 30)]];
         [_changePwdView addSubview:[UIImageView addImageViewWithImageName:@"ic_right" frame:CGRectMake(screenWidth - 30, 15, 15, 20)]];
     }
-    
     return _changePwdView;
 }
 
@@ -130,7 +117,6 @@
         [_quitBtn addTarget:self action:@selector(quitBtnAction:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_quitBtn];
     }
-    
     return _quitBtn;
 }
 

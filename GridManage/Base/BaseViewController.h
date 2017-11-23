@@ -18,6 +18,9 @@
 @property (nonatomic, strong) Class backToClass;
 @property (nonatomic, assign) BOOL isNOBackAnimation; //是否没有back Animation
 
+@property (nonatomic, strong) UIView *titleView;
+@property (nonatomic, strong) UISegmentedControl *segmentedControl;
+@property (nonatomic, strong) NSArray *segmentItems;
 
 @property (nonatomic, strong) UILabel *notiLabel;//无数据 显示label
 @property (nonatomic, strong) UITableView *displayTableView;
@@ -40,5 +43,7 @@
  @param tap <#tap description#>
  */
 - (void)notiLabelTapAction:(UITapGestureRecognizer *)tap;
+
+- (void)segmentControlAction:(UISegmentedControl *)segmentControl;
 
 @end
